@@ -70,10 +70,8 @@ def format(clf, toFit):
                 pointLabels[strucCounter*len(pointLabels)/7+numGroups][count] = clf.predict(np.array([toFit[index]]))
                 count += 1
     
-            #print("Next group!")
             numGroups += 1
     
-        #print ("Onto the next structure!")
         strucCounter += 1
         
     return pointLabels, groupSize
@@ -128,14 +126,14 @@ def main():
                 rawY_train1 = rc2.buildTrain(rawTrain1)[:,-1]
                 
                 rawTrain2 = rc2.genCoords()
-                rawX_train2 = rc2.buildTest(rawTrain2)[:] #Used in clf1 to make individual point predictions, the "actual training data"                
+                rawX_train2 = rc2.buildTest(rawTrain2)[:]
             else: 
                 rawTrain1 = rc3.genCoords()
                 rawX_train1 = rc3.buildTrain(rawTrain1)[:,0:9]
                 rawY_train1 = rc3.buildTrain(rawTrain1)[:,-1]
                 
                 rawTrain2 = rc3.genCoords()
-                rawX_train2 = rc3.buildTest(rawTrain2)[:] #Used in clf1 to make individual point predictions, the "actual training data"                
+                rawX_train2 = rc3.buildTest(rawTrain2)[:]         
         else: print ("That's not a valid range, please try again.")
     
     print ("All training coordinates generated")
@@ -181,7 +179,7 @@ def main():
     print ("Individual point neural net trained.")
     
     #Formatting the actual training data
-    medX_train, Y_train, groupSize = formatTrain(clf1, rawX_train2) #Get it...raw, medium, well done? Ok, that was a horrid pun
+    medX_train, Y_train, groupSize = formatTrain(clf1, rawX_train2)
     X_train = np.zeros([len(medX_train),7])
     X_train = formatFreq(X_train, medX_train)
     
